@@ -1,0 +1,13 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+<body>
+
+  <% Object.keys(urls).forEach( function ( url ){ %>
+  <br><a href="<%= urls[url] %>"><%= urls[url] %><a/></br>
+  <% }); %>
+  <br><a href="/">URL Shortener</a></br>
+</body>
+</html>
