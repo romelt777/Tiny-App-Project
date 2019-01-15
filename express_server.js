@@ -24,6 +24,13 @@ app.get("/urls", (request, respond) => {
   respond.render("urls_index", template1);
 });
 
+app.get("/urls/:id", (request, respond) => {
+  let template2 = { shortURL: request.params.id,
+                    urls: urlDatabase
+  };
+  respond.render("urls_show", template2);
+});
+
 
 
 app.listen(PORT, () => {
