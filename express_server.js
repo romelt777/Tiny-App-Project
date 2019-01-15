@@ -19,6 +19,11 @@ app.get("/hello", (req, res) => {
   res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
 
+app.get("/urls", (request, respond) => {
+  let template1 = { urls: urlDatabase}; // sends url Database to urls_index
+  respond.render("urls_index", template1);
+});
+
 
 
 app.listen(PORT, () => {
