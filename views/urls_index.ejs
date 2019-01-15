@@ -3,11 +3,15 @@
 <head>
   <title>TinyApp</title>
 </head>
+<header>
+  <% include partials/_header %>
+</header>
 <body>
+
 
   <% Object.keys(urls).forEach( function ( url ){ %>
 
-  <br><a href="<%=urls[url] %>"><%= url%>: <%=urls[url]%><a/></br>
+  <br><%= url%>: <%=urls[url]%></br>
 
   <% }); %>
 
