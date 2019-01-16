@@ -96,12 +96,16 @@ app.post("/urls/:id", (request, respond) => {
   var shortURL = request.params.id;
   urlDatabase[shortURL] = newURL
 
-
-
   respond.render("urls_show", template3);
   // render.send("Okay!");
   console.log(urlDatabase);
+});
 
+app.post("/login", (request, respond) => {
+  var newUser = request['body']['username']
+  respond.cookie("username", newUser);
+  // console.log(respond.body.username);
+  respond.redirect('http://localhost:8080/urls/');
 });
 
 
