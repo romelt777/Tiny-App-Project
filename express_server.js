@@ -87,6 +87,24 @@ app.post("/urls/:id/delete", (request, respond) => {
 });
 
 
+app.post("/urls/:id", (request, respond) => {
+  // console.log("tst 1 " , request.body.longURL);
+  let template3 = { shortURL: request.params.id,
+                    urls: urlDatabase
+  };
+  var newURL = request.body.longURL
+  var shortURL = request.params.id;
+  urlDatabase[shortURL] = newURL
+
+
+
+  respond.render("urls_show", template3);
+  // render.send("Okay!");
+  console.log(urlDatabase);
+
+});
+
+
 
 
 app.listen(PORT, () => {

@@ -9,8 +9,21 @@
 <body>
 
   Test2
-  <br><%=shortURL%></br>
-  <br><%=urls[shortURL]%></br>
+  <br></br>
+  <br><b>Short URL =>  </b><%=shortURL%></br>
+  <br></br>
+
+  </form>
+
+  <form action="/urls/<%=shortURL%>/"  method="POST" style ="margin:300px;">
+
+
+    <input id="LongURL" type="text" name="longURL" placeholder="<%=urls[shortURL]%>" style="width:500px;height:40px;font-size:30px">
+
+    <input type="submit" value="Update" style="width:300px;height:40px;font-size:30px">
+
+  </form>
+
 
 
 </body>
