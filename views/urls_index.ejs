@@ -13,6 +13,7 @@
 
   <form action="/urls/<%= url%>/delete" method="POST">
     <%= url%> => <a href="<%=urls[url]%>"><%=urls[url]%></a>
+    <a href="/urls/<%= url%>">Edit</a>
     <input type="submit" value="Delete">
 
   </form>
