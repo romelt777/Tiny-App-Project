@@ -75,6 +75,20 @@ app.post("/urls", (request, respond) => {
 
 });
 
+app.post("/urls/:id/delete", (request, respond) => {
+
+  // console.log(urlDatabase);
+  var shortURL = request.params.id;
+  console.log("tst" ,shortURL);
+  delete urlDatabase[shortURL];
+  // respond.send("Okay!");
+  console.log(urlDatabase);
+  respond.redirect('http://localhost:8080/urls/');
+});
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Romel's app listening on port ${PORT}!`);
 
