@@ -3,6 +3,11 @@ var express = require("express");
 var app = express();
 var PORT = 8080;
 
+//body parser to access post request parameters
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended: true}));
+
+
 //declaring app to use EJS as templating engine
 app.set("view engine", "ejs");
 
@@ -24,11 +29,20 @@ app.get("/urls", (request, respond) => {
   respond.render("urls_index", template1);
 });
 
+app.get("/urls/new", (request, respond) => {
+  respond.render("urls_new");
+});
+
 app.get("/urls/:id", (request, respond) => {
   let template2 = { shortURL: request.params.id,
                     urls: urlDatabase
   };
   respond.render("urls_show", template2);
+});
+
+app.post("/urls", (request, respond) => {
+  console.log(request.body);
+  respond.send("Okay!");
 });
 
 
