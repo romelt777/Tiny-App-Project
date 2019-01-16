@@ -57,6 +57,7 @@ app.get("/urls/new", (request, respond) => {
 app.get("/urls/:id", (request, respond) => {
   console.log("tst1" , request);
   console.log("tst2", respond);
+
   let template2 = { shortURL: request.params.id,
                     urls: urlDatabase,
                     username: request.headers.cookie
@@ -115,7 +116,13 @@ app.post("/login", (request, respond) => {
   // console.log(respond.body.username);
   respond.redirect('http://localhost:8080/urls/');
 });
-console.log(newUser);
+
+app.post("/logout", (request, respond) => {
+  respond.clearCookie("username");
+  respond.redirect('http://localhost:8080/urls/');
+});
+
+
 
 
 
