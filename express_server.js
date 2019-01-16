@@ -16,6 +16,23 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+
+function generateRandomString() {
+  var list = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var randomString = "";
+  var randomNumber = 0;
+
+  for(let i = 0; i < 6; i++){
+    //62 characters * random number between 0-1, math floor returns largest integer.
+    randomNumber = Math.floor(62 * Math.random());
+    randomString += list[randomNumber];
+  }
+  return randomString;
+
+}
+//random string test
+console.log(generateRandomString());
+
 app.get("/", (req, res) => {
   res.send("Hello");
 });
