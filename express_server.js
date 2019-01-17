@@ -17,6 +17,20 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com",
 };
 
+const users = {
+  romelID : {
+    id: "romelID",
+    email: "romel@example.com",
+    password: "password2018"
+  },
+  kawhiID : {
+    id: "kawhiID",
+    email: "kawhi@raptors.ca",
+    password: "leonard2018"
+  }
+}
+
+
 
 function generateRandomString() {
   var list = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -62,6 +76,31 @@ app.get("/u/:shortURL", (request, respond) => {
   var shortURL = request.params.shortURL;
   respond.redirect(urlDatabase[shortURL]);
 })
+
+app.get("/register", (request, respond) => {
+  let template4 = { shortURL: request.params.id,
+                    urls: urlDatabase
+  };
+  respond.render("urls_register", template4);
+})
+
+// app.post("/register", (request, respond) => {
+//   let template5 = { shortURL: request.params.id,
+//                     urls: urlDatabase
+//   };
+//   longURL = request.body.longURL;
+//   var shortURL = generateRandomString();
+//   // respond.send("Okay!");
+//   urlDatabase[shortURL] = longURL;
+//   respond.redirect(`http://localhost:8080/urls/${shortURL}`);
+
+// });
+
+
+
+
+
+
 
 //replies to post requests.
 app.post("/urls", (request, respond) => {
