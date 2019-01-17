@@ -55,8 +55,8 @@ app.get("/urls/new", (request, respond) => {
 });
 
 app.get("/urls/:id", (request, respond) => {
-  console.log("tst1" , request);
-  console.log("tst2", respond);
+  // console.log("tst1" , request);
+  // console.log("tst2", respond);
 
   let template2 = { shortURL: request.params.id,
                     urls: urlDatabase,
@@ -70,6 +70,31 @@ app.get("/u/:shortURL", (request, respond) => {
   var shortURL = request.params.shortURL;
   respond.redirect(urlDatabase[shortURL]);
 })
+
+
+app.get("/register", (request, respond) => {
+  let template4 = { shortURL: request.params.id,
+                    urls: urlDatabase,
+                    username: request.headers.cookie
+  };
+  respond.render("urls_register", template4);
+})
+
+app.post("/register", (request, respond) => {
+  let template5 = { shortURL: request.params.id,
+                    urls: urlDatabase
+  };
+  console.log("tst 1 " , request);
+  console.log("tst2" , respond);
+  longURL = request.body.longURL;
+  var shortURL = generateRandomString();
+  respond.send("Okay!");
+
+});
+
+
+
+
 
 //replies to post requests.
 app.post("/urls", (request, respond) => {
@@ -109,7 +134,7 @@ app.post("/urls/:id", (request, respond) => {
   // render.send("Okay!");
   console.log(urlDatabase);
 });
-var newUser = "Lol";
+
 app.post("/login", (request, respond) => {
    newUser = request['body']['username']
   respond.cookie("username", newUser);
