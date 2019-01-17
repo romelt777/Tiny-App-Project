@@ -17,6 +17,19 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com",
 };
 
+var usersDatabase = {
+  romelID : {
+    id: "romelID",
+    email: "romel@example.com",
+    password: "password2018"
+  },
+  kawhiID : {
+    id: "kawhiID",
+    email: "kawhi@raptors.ca",
+    password: "leonard2018"
+  }
+}
+
 
 function generateRandomString() {
   var list = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -82,13 +95,22 @@ app.get("/register", (request, respond) => {
 
 app.post("/register", (request, respond) => {
   let template5 = { shortURL: request.params.id,
-                    urls: urlDatabase
+                    urls: urlDatabase,
+                    username: request.headers.cookie,
+                    userInfo: usersDatabase
   };
-  console.log("tst 1 " , request);
-  console.log("tst2" , respond);
-  longURL = request.body.longURL;
-  var shortURL = generateRandomString();
-  respond.send("Okay!");
+  var randID = generateRandomString();
+  newUser = randID
+  respond.cookie("username", newUser);
+  var newUserObject = {
+    id: randID,
+    email: request.body.email,
+    password:request.body.password
+  }
+  usersDatabase[randID]= newUserObject;
+
+  console.log(usersDatabase);
+  respond.redirect('http://localhost:8080/urls/');
 
 });
 
