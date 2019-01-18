@@ -9,6 +9,13 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+// using b crypt
+const bcrypt = require('bcrypt');
+// const password = "purple-monkey-dinosaur"; // you will probably this from req.params
+// const hashedPassword = bcrypt.hashSync(password, 10);
+// console.log(hashedPassword);
+// bcrypt.compareSync("purple-monkey-dinosaur", hashedPassword);
+
 //declaring app to use EJS as templating engine
 app.set("view engine", "ejs");
 
@@ -248,10 +255,13 @@ app.post("/register", function (request, respond) {
   newUser = randID
   respond.cookie("user_id", newUser);
 
+  console.log(request.body.password);
+  var hashedPassword = bcrypt.hashSync(request.body.password, 10);
+
   usersDatabase[randID] = {
     id: randID,
     email: request.body.email,
-    password:request.body.password
+    password: hashedPassword
   }
 
   // console.log(usersDatabase);
@@ -319,12 +329,12 @@ app.post("/urls/:id", (request, respond) => {
 });
 
 app.post("/login", (request, respond) => {
-  var checkEmail = false;
+  // var checkEmail = false;
   var checkEmailArray = [];
   var email = request.body.email
   // console.log(email);
 
-  var checkPassword = false;
+  // var checkPassword = false;
   var checkPasswordArray= [];
   var password = request.body.password;
   // console.log(password);
@@ -345,14 +355,15 @@ app.post("/login", (request, respond) => {
   // console.log(checkLength);
   for(let i = 0; i < checkLength; i ++){
      if(email === checkEmailArray[i]){
-        checkEmail = true;
+        // checkEmail = true;
         console.log("correct email!");
-        console.log("tst1" , checkPasswordArray[i]);
+        // console.log("tst1" , checkPasswordArray[i]);
         console.log("tst2", password);
-        if(password === checkPasswordArray[i]){
+        // console.log(bcrypt.compareSync(password, checkPasswordArray[i]));
+        if(bcrypt.compareSync(password, checkPasswordArray[i])){
            console.log("correct!")
             respond.cookie("user_id", checkIdArray[i]);
-            checkPassword = true;
+            // checkPassword = true;
             respond.redirect('http://localhost:8080/');
             break;
         } else{

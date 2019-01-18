@@ -10,6 +10,7 @@
   "author": "Romel Tan, romel.tan777@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "2.0.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "dev": "^0.1.3",
