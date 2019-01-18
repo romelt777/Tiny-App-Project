@@ -1,11 +1,14 @@
 <h1>This is a website</h1>
 
 <h2>
-    <% if(username === undefined ) { %>
-          <a href="/login/">Log In</a>
+    <% if(cookie === undefined ) { %>
+      <br><a href="/register/">Register</a></br>
+      <a href="/login/">Log In</a>
     <% }else { %>
       <form action="/logout" method="POST"
-        <label for="logout">Username: <%=userID%><br>Email: <%=userEmail%></br>Password: <%=userPassword%> => </label>
+        <label for="logout">user_id: <%=user_id%> => </label>
+        <br>Email: <%=user_email%></br>
+        <br>Password: <%=user_password%></br>
         <input type="submit" value="Log Out">
       </form>
     <% } %>
