@@ -1,19 +1,16 @@
-<h1>This is a website</h1>
+<h1>Romel's Tiny App</h1>
 
 <h2>
-    <% if(username === undefined ) { %>
-    <form action="/login" method="POST" style="margin:150px;">
-      <label for="username">name = </label>
-      <input id="name = " type="text" name="username" placeholder="username"style = width: 300px">
-      <input type="submit" value="Submit">
-    </form>
+    <% if(cookie === undefined ) { %>
+      <br><a href="/register/">Register</a></br>
+      <a href="/login/">Log In</a>
     <% }else { %>
-      <form action="/logout" method="POST" style="margin:150px;">
-        <label for="logout"><%=username%> => </label>
+      <form action="/logout" method="POST"
+        <label for="logout">user_id: <%=user_id%></label>
+        <br>Email: <%=user_email%></br>
+        <br>Password: <%=user_password%></br>
         <input type="submit" value="Log Out">
       </form>
     <% } %>
-
-
 
 </h2>

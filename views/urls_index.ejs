@@ -7,20 +7,21 @@
   <% include partials/_header %>
 </header>
 <body>
-  <br>Test1</br>
   <br></br>
+  <% if(cookie === undefined || check2 === false) { %>
+
+  <% }else { %>
   <% Object.keys(urls).forEach( function ( url ){ %>
 
   <form action="/urls/<%= url%>/delete" method="POST">
     <%= url%> => <a href="<%=urls[url]%>"><%=urls[url]%></a>
     <a href="/urls/<%= url%>">Edit</a>
     <input type="submit" value="Delete">
-
   </form>
-
   <% }); %>
+  <% } %>
   <br></br>
-  <a href="/">URL Shortener</a>
+  <a href="/urls/new">URL Shortener</a>
 
 </body>
 </html>
