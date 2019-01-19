@@ -37,35 +37,19 @@ var urlDatabase = {
   }
 };
 
-<<<<<<< HEAD
-const users = {
-  romelID : {
-    id: "romelID",
-    email: "romel@example.com",
-    password: "password2018"
-=======
 var usersDatabase = {
   romelID : {
     id: "romelID",
     email: "romel@example.com",
     password: "lighthouse"
->>>>>>> feature/cookies
   },
   kawhiID : {
     id: "kawhiID",
     email: "kawhi@raptors.ca",
-<<<<<<< HEAD
-    password: "leonard2018"
-  }
-}
-
-
-=======
     password: "leonard"
   }
 }
 
->>>>>>> feature/cookies
 
 function generateRandomString() {
   var list = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -223,31 +207,6 @@ app.post("/register", function (request, respond) {
   respond.redirect('http://localhost:8080/urls/');
 });
 
-app.get("/register", (request, respond) => {
-  let template4 = { shortURL: request.params.id,
-                    urls: urlDatabase
-  };
-  respond.render("urls_register", template4);
-})
-
-// app.post("/register", (request, respond) => {
-//   let template5 = { shortURL: request.params.id,
-//                     urls: urlDatabase
-//   };
-//   longURL = request.body.longURL;
-//   var shortURL = generateRandomString();
-//   // respond.send("Okay!");
-//   urlDatabase[shortURL] = longURL;
-//   respond.redirect(`http://localhost:8080/urls/${shortURL}`);
-
-// });
-
-
-
-
-
-
-
 //replies to post requests.
 app.post("/urls", (request, respond) => {
   var user_id = request.session.user_id;
@@ -308,7 +267,7 @@ app.post("/login", (request, respond) => {
   for(let i = 0; i < checkLength; i ++){
      if(email === checkEmailArray[i]){
         if(bcrypt.compareSync(password, checkPasswordArray[i])){
-            respond.cookie("user_id", checkIdArray[i]);
+            request.session.user_id = checkIdArray[i];
             respond.redirect('http://localhost:8080/');
             break;
         } else{
