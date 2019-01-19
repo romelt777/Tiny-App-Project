@@ -4,8 +4,8 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ##Final Project
 
-!["/urls page, while logged in. Can view shortened links"](#)
-!["/urls/:id page, user may edit links."]
+!["/urls page, while logged in. Can view shortened links"](https://github.com/romelt777/Tiny-App-Project/blob/master/docs/RomelTInyApp_%20urlsshortURL.png)
+!["/urls/:id page, user may edit links."](https://github.com/romelt777/Tiny-App-Project/blob/master/docs/RomelTinyAppurls.png)
 
 
 ##Dependencies
