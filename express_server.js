@@ -56,7 +56,11 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/urls", (request, respond) => {
-  let template1 = { urls: urlDatabase}; // sends url Database to urls_index
+  let template1 = { urls: urlDatabase,
+                    username: request.headers.cookie
+                  };
+
+  // console.log("tst" , request.headers.cookie.username);
   respond.render("urls_index", template1);
 });
 
@@ -65,8 +69,12 @@ app.get("/urls/new", (request, respond) => {
 });
 
 app.get("/urls/:id", (request, respond) => {
+  console.log("tst1" , request);
+  console.log("tst2", respond);
+
   let template2 = { shortURL: request.params.id,
-                    urls: urlDatabase
+                    urls: urlDatabase,
+                    username: request.headers.cookie
   };
   respond.render("urls_show", template2);
 });
@@ -118,7 +126,7 @@ app.post("/urls/:id/delete", (request, respond) => {
 
   // console.log(urlDatabase);
   var shortURL = request.params.id;
-  console.log("tst" ,shortURL);
+  // console.log("tst" ,shortURL);
   delete urlDatabase[shortURL];
   // respond.send("Okay!");
   console.log(urlDatabase);
@@ -129,19 +137,30 @@ app.post("/urls/:id/delete", (request, respond) => {
 app.post("/urls/:id", (request, respond) => {
   // console.log("tst 1 " , request.body.longURL);
   let template3 = { shortURL: request.params.id,
-                    urls: urlDatabase
+                    urls: urlDatabase,
+                    username: request.headers.cookie
   };
   var newURL = request.body.longURL
   var shortURL = request.params.id;
   urlDatabase[shortURL] = newURL
 
-
-
   respond.render("urls_show", template3);
   // render.send("Okay!");
   console.log(urlDatabase);
-
 });
+var newUser = "Lol";
+app.post("/login", (request, respond) => {
+   newUser = request['body']['username']
+  respond.cookie("username", newUser);
+  // console.log(respond.body.username);
+  respond.redirect('http://localhost:8080/urls/');
+});
+
+app.post("/logout", (request, respond) => {
+  respond.clearCookie("username");
+  respond.redirect('http://localhost:8080/urls/');
+});
+
 
 
 
