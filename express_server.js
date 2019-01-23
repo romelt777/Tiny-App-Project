@@ -7,8 +7,9 @@ const cookieSession = require('cookie-session');
 
 var app = express();
 var PORT = 8080;
-var longURL = "Lol";
+var longURL = "";
 var randID = generateRandomString();
+var checkEmailArray = [];
 //body parser to access post request parameters
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
@@ -65,8 +66,7 @@ function generateRandomString() {
 }
 
 function urlsForUser(id) {
-  newID = id;
-  return urlDatabase[newID];
+  return urlDatabase[id];
 }
 
 
@@ -84,7 +84,6 @@ app.get("/urls", (request, respond) => {
       var templatevars = {shortURL: request.params.id,
                           user_id: usersDatabase[request.session.user_id]['id'],
                           user_email: usersDatabase[request.session.user_id]['email'],
-                          user_password: usersDatabase[request.session.user_id]['password'],
                           cookie: (request.session.user_id),
                           check2 : check
                           };
@@ -95,14 +94,13 @@ app.get("/urls", (request, respond) => {
                           urls:  urlsForUser(request.session.user_id),
                           user_id: usersDatabase[request.session.user_id]['id'],
                           user_email: usersDatabase[request.session.user_id]['email'],
-                          user_password: usersDatabase[request.session.user_id]['password'],
                           cookie: (request.session.user_id),
                           check2: check
                           };
   } else {
       var templatevars = {shortURL: request.params.id,
                           urls: urlDatabase,
-                          cookie: ((request.session.user_id))
+                          cookie: request.session.user_id
                           }
   }
 
@@ -116,7 +114,6 @@ app.get("/urls/new", (request, respond) => {
                         urls: urlDatabase,
                         user_id: usersDatabase[request.session.user_id]['id'],
                         user_email: usersDatabase[request.session.user_id]['email'],
-                        user_password: usersDatabase[request.session.user_id]['password'],
                         cookie: (request.session.user_id)
                        };
   respond.render("urls_new", templatevars);
@@ -140,7 +137,6 @@ app.get("/urls/:id", (request, respond) => {
                         urls: urlDatabase[request.session.user_id],
                         user_id: usersDatabase[request.session.user_id]['id'],
                         user_email: usersDatabase[request.session.user_id]['email'],
-                        user_password: usersDatabase[request.session.user_id]['password'],
                         cookie: (request.session.user_id)
                         };
 
@@ -191,6 +187,23 @@ app.post("/register", function (request, respond) {
                     userInfo: usersDatabase,
                     userObject: usersDatabase[request.session.user_id]
   };
+
+  var email = request.body.email
+
+  for (var LONGID in usersDatabase) {
+    var obj = usersDatabase[LONGID];
+    checkEmailArray.push(obj.email);
+}
+
+  var checkLength = checkEmailArray.length;
+
+  for(let i = 0; i < checkLength; i ++){
+
+   if(email === checkEmailArray[i]){
+        return respond.sendStatus(400);
+      }
+  }
+
   if(request.body.email === ""){
     return respond.sendStatus(400);
   }
@@ -203,6 +216,7 @@ app.post("/register", function (request, respond) {
     email: request.body.email,
     password: hashedPassword
   }
+  checkEmailArray.push(request.body.email);
 
   respond.redirect('http://localhost:8080/urls/');
 });
@@ -237,7 +251,6 @@ app.post("/urls/:id", (request, respond) => {
                       urls: urlDatabase,
                       user_id: usersDatabase[request.session.user_id]['id'],
                       user_email: usersDatabase[request.session.user_id]['email'],
-                      user_password: usersDatabase[request.session.user_id]['password'],
                       cookie: (request.session.user_id)
                       }
   var newURL = request.body.longURL
@@ -248,7 +261,6 @@ app.post("/urls/:id", (request, respond) => {
 
 app.post("/login", (request, respond) => {
 
-  var checkEmailArray = [];
   var email = request.body.email
 
   var checkPasswordArray= [];
