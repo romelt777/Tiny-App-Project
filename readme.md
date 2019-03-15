@@ -23,5 +23,6 @@ Users are able to submit links to shorten, and are saved to the user profile. Us
 
 ## Getting Started
 
--Install all dependencies (using 'npm install' command).\
--Run the development web server using the 'npm start' command.
+- Install all dependencies (using 'npm install' command).\
+- Run the development web server using the 'npm start' command.
+- Open localhost:8080
